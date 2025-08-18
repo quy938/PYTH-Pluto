@@ -28,6 +28,14 @@ def delete_user(user_id):
     global users
     users = [user for user in users if user.get('id') != user_id]
     return jsonify({"message": "User deleted"})
+ @app.route('/users', methods=['POST'])
+
+def add_user():
+    data = request.get_json()
+    if not data or 'name' not in data or 'email' not in 
+        return jsonify({"error": "Invalid input"}), 400
+    users.append(data)
+    return jsonify({"message": "User added", "user": data}), 201   
 
 if __name__ == '__main__':
     app.run(debug=True)
