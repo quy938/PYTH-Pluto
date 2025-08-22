@@ -1,6 +1,16 @@
+import logging
 from flask import Flask, jsonify, request
 from flasgger import Swagger
 
+
+
+# Настройка логирования
+logging.basicConfig(filename='api.log', level=logging.INFO, 
+                    format='%(asctime)s %(levelname)s: %(message)s')
+
+@app.before_request
+def log_request_info():
+    logging.info(f"Request: {request.method} {request.url}")
 app = Flask(__name__)
 Swagger(app)
 
